@@ -151,19 +151,24 @@ var Main = (function (_super) {
         p1.width = stageW;
         p1.height = stageH;
         var sky = this.createBitmapByName("41297261_p0_jpg");
-        this.addChild(sky);
+        p1.addChild(sky);
         sky.width = stageW;
         sky.height = stageH;
         //添加背景
+        var headportrait = this.createBitmapByName("51654332_p0_png");
+        p1.addChild(headportrait);
+        headportrait.x = -600;
+        headportrait.y = 200;
+        //添加头像
         var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, 172);
         topMask.graphics.endFill();
         topMask.y = 33;
-        this.addChild(topMask);
+        p1.addChild(topMask);
         //添加阴影
         var icon = this.createBitmapByName("egret_icon_png");
-        this.addChild(icon);
+        p1.addChild(icon);
         icon.x = 26;
         icon.y = 33;
         //添加白鹭图标
@@ -174,18 +179,40 @@ var Main = (function (_super) {
         line.graphics.endFill();
         line.x = 172;
         line.y = 61;
-        this.addChild(line);
+        p1.addChild(line);
         //添加一条白色直线
+        var shp = new egret.Shape();
+        shp.x = 100;
+        shp.y = 100;
+        shp.graphics.lineStyle(10, 0x00ff00);
+        shp.graphics.beginFill(0xff0000, 1);
+        shp.graphics.drawCircle(250, 270, 115);
+        shp.graphics.endFill();
+        p1.addChild(shp);
+        headportrait.mask = shp;
+        //遮罩用的圆
         var colorLabel = new egret.TextField();
         colorLabel.x = stageW;
         colorLabel.textColor = 0xffffff;
         colorLabel.width = stageW - 250;
+        colorLabel.fontFamily = "Microsoft YaHei";
         colorLabel.textAlign = "center";
         colorLabel.text = "崔天舒";
         colorLabel.size = 60;
         colorLabel.x = 160;
-        colorLabel.y = stageH / 2 - 80;
-        this.addChild(colorLabel);
+        colorLabel.y = stageH / 2 - 40;
+        p1.addChild(colorLabel);
+        var colorLabel2 = new egret.TextField();
+        colorLabel2.x = stageW;
+        colorLabel2.textColor = 0xffffff;
+        colorLabel2.width = stageW - 250;
+        colorLabel2.fontFamily = "Microsoft YaHei";
+        colorLabel2.textAlign = "center";
+        colorLabel2.text = "14081205";
+        colorLabel2.size = 50;
+        colorLabel2.x = 160;
+        colorLabel2.y = stageH / 2 + 40;
+        p1.addChild(colorLabel2);
         var textfield = new egret.TextField();
         this.addChild(textfield);
         textfield.alpha = 0;
