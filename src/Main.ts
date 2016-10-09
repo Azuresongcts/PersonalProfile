@@ -110,19 +110,82 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
+
+
+
+
+
     private textfield:egret.TextField;
+    private sound:egret.Sound;
+    private soundChannel:egret.SoundChannel;
 
     /**
      * 创建游戏场景
      * Create a game scene
      */
     private createGameScene():void {
-        var sky:egret.Bitmap = this.createBitmapByName("bg_jpg");
-        this.addChild(sky);
         var stageW:number = this.stage.stageWidth;
+        var stageAW:number=this.stage.stageWidth*5;
         var stageH:number = this.stage.stageHeight;
+
+        this.scrollRect = new egret.Rectangle(0, 0,stageAW,stageH);
+        this.cacheAsBitmap = true;
+        this.touchEnabled = true;
+        var origintouchpointX:number = 0;
+        var originstagepointX:number = 0;
+        var movedistance:number = 0;
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,scrollmove, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END,scrollstop, this);
+
+        function scrollmove(e:egret.TouchEvent):void{
+            if((this.scrollRect.x%stageW)!=0){
+                this.scrollRect.x=originstagepointX;
+            }
+            originstagepointX=this.scrollRect.x;
+            origintouchpointX=e.stageX;
+            this.addEventListener(egret.TouchEvent.TOUCH_MOVE,scrolling,this);
+        }
+
+        function scrolling(e:egret.TouchEvent):void{
+            var rect: egret.Rectangle=this.scrollRect;
+            movedistance=origintouchpointX-e.stageX;
+            rect.x=(origintouchpointX+movedistance);
+            this.scrollRect=rect;
+        }
+
+        function scrollstop(e:egret.TouchEvent):void{
+            var rect:egret.Rectangle=this.scrollRect;
+            if((movedistance>=(this.stage.stageWidth/4)) && originstagepointX!=stageAW){
+                rect.x = originstagepointX + stageW;
+                this.scrollRect = rect;
+                movedistance = 0;
+            }
+            if((movedistance<=(-(this.stage.stageWidth/4))) &&originstagepointX!=0) {
+                rect.x = originstagepointX - stageW;
+                this.scrollRect = rect;    
+                movedistance = 0;
+            }else{
+                movedistance = 0;
+                rect.x = originstagepointX;
+                this.scrollRect = rect;
+
+            }
+             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,scrolling,this);
+        }
+
+        
+//////////////////////////////////////////////////////////////////
+
+        var p1 = new egret.DisplayObjectContainer();
+        this.addChild(p1);
+        p1.width = stageW;
+        p1.height = stageH;
+
+        var sky:egret.Bitmap = this.createBitmapByName("41297261_p0_jpg");
+        this.addChild(sky);
         sky.width = stageW;
         sky.height = stageH;
+        //添加背景
 
         var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
@@ -130,11 +193,13 @@ class Main extends egret.DisplayObjectContainer {
         topMask.graphics.endFill();
         topMask.y = 33;
         this.addChild(topMask);
+        //添加阴影
 
         var icon:egret.Bitmap = this.createBitmapByName("egret_icon_png");
         this.addChild(icon);
         icon.x = 26;
         icon.y = 33;
+        //添加白鹭图标
 
         var line = new egret.Shape();
         line.graphics.lineStyle(2,0xffffff);
@@ -144,16 +209,17 @@ class Main extends egret.DisplayObjectContainer {
         line.x = 172;
         line.y = 61;
         this.addChild(line);
-
+        //添加一条白色直线
 
         var colorLabel = new egret.TextField();
+        colorLabel.x = stageW;
         colorLabel.textColor = 0xffffff;
-        colorLabel.width = stageW - 172;
+        colorLabel.width = stageW-250;
         colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 24;
-        colorLabel.x = 172;
-        colorLabel.y = 80;
+        colorLabel.text = "崔天舒";
+        colorLabel.size =60;
+        colorLabel.x = 160;
+        colorLabel.y = stageH/2-80;
         this.addChild(colorLabel);
 
         var textfield = new egret.TextField();
@@ -167,10 +233,22 @@ class Main extends egret.DisplayObjectContainer {
         textfield.y = 135;
         this.textfield = textfield;
 
+
+
+
+
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
         RES.getResAsync("description_json", this.startAnimation, this)
     }
+
+
+
+
+
+
+
+
 
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -226,4 +304,7 @@ class Main extends egret.DisplayObjectContainer {
     }
 }
 
-
+       /*private onloadmusic(event:RES.ResourceEvent):void  {
+        var twiloader:egret.URLLoader = new egret.URLLoader();
+        twiloader.dataFormat = egret.URLLoaderDataFormat.SOUND;
+        twiloader.load(new egret.URLRequest("resource/twilight.mp3"));}*///加载音频文件

@@ -101,22 +101,72 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        var sky = this.createBitmapByName("bg_jpg");
-        this.addChild(sky);
         var stageW = this.stage.stageWidth;
+        var stageAW = this.stage.stageWidth * 5;
         var stageH = this.stage.stageHeight;
+        this.scrollRect = new egret.Rectangle(0, 0, stageAW, stageH);
+        this.cacheAsBitmap = true;
+        this.touchEnabled = true;
+        var origintouchpointX = 0;
+        var originstagepointX = 0;
+        var movedistance = 0;
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, scrollmove, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, scrollstop, this);
+        function scrollmove(e) {
+            if ((this.scrollRect.x % stageW) != 0) {
+                this.scrollRect.x = originstagepointX;
+            }
+            originstagepointX = this.scrollRect.x;
+            origintouchpointX = e.stageX;
+            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, scrolling, this);
+        }
+        function scrolling(e) {
+            var rect = this.scrollRect;
+            movedistance = origintouchpointX - e.stageX;
+            rect.x = (origintouchpointX + movedistance);
+            this.scrollRect = rect;
+        }
+        function scrollstop(e) {
+            var rect = this.scrollRect;
+            if ((movedistance >= (this.stage.stageWidth / 4)) && originstagepointX != stageAW) {
+                rect.x = originstagepointX + stageW;
+                this.scrollRect = rect;
+                movedistance = 0;
+            }
+            if ((movedistance <= (-(this.stage.stageWidth / 4))) && originstagepointX != 0) {
+                rect.x = originstagepointX - stageW;
+                this.scrollRect = rect;
+                movedistance = 0;
+            }
+            else {
+                movedistance = 0;
+                rect.x = originstagepointX;
+                this.scrollRect = rect;
+            }
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, scrolling, this);
+        }
+        //////////////////////////////////////////////////////////////////
+        var p1 = new egret.DisplayObjectContainer();
+        this.addChild(p1);
+        p1.width = stageW;
+        p1.height = stageH;
+        var sky = this.createBitmapByName("41297261_p0_jpg");
+        this.addChild(sky);
         sky.width = stageW;
         sky.height = stageH;
+        //添加背景
         var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, 172);
         topMask.graphics.endFill();
         topMask.y = 33;
         this.addChild(topMask);
+        //添加阴影
         var icon = this.createBitmapByName("egret_icon_png");
         this.addChild(icon);
         icon.x = 26;
         icon.y = 33;
+        //添加白鹭图标
         var line = new egret.Shape();
         line.graphics.lineStyle(2, 0xffffff);
         line.graphics.moveTo(0, 0);
@@ -125,14 +175,16 @@ var Main = (function (_super) {
         line.x = 172;
         line.y = 61;
         this.addChild(line);
+        //添加一条白色直线
         var colorLabel = new egret.TextField();
+        colorLabel.x = stageW;
         colorLabel.textColor = 0xffffff;
-        colorLabel.width = stageW - 172;
+        colorLabel.width = stageW - 250;
         colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 24;
-        colorLabel.x = 172;
-        colorLabel.y = 80;
+        colorLabel.text = "崔天舒";
+        colorLabel.size = 60;
+        colorLabel.x = 160;
+        colorLabel.y = stageH / 2 - 80;
         this.addChild(colorLabel);
         var textfield = new egret.TextField();
         this.addChild(textfield);
@@ -196,3 +248,8 @@ var Main = (function (_super) {
     return Main;
 }(egret.DisplayObjectContainer));
 egret.registerClass(Main,'Main');
+/*private onloadmusic(event:RES.ResourceEvent):void  {
+ var twiloader:egret.URLLoader = new egret.URLLoader();
+ twiloader.dataFormat = egret.URLLoaderDataFormat.SOUND;
+ twiloader.load(new egret.URLRequest("resource/twilight.mp3"));}*/ //加载音频文件
+//# sourceMappingURL=Main.js.map
