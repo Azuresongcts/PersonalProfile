@@ -30,6 +30,8 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         _super.call(this);
+        this.speed = 0.05;
+        this.timeOnEnterFrame = 0;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
     var d = __define,c=Main,p=c.prototype;
@@ -96,6 +98,25 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
+    p.onEnterFrame = function (e) {
+        var now = egret.getTimer();
+        var time = this.timeOnEnterFrame;
+        var pass = now - time;
+        this.alpha -= 0.04;
+        this.timeOnEnterFrame = egret.getTimer();
+        if (this.alpha <= 0)
+            this.alpha = 1;
+    };
+    p.onEnterFrame2 = function (e) {
+        var now = egret.getTimer();
+        var time = this.timeOnEnterFrame;
+        var pass = now - time;
+        this.alpha -= 0.01;
+        this.timeOnEnterFrame = egret.getTimer();
+        if (this.alpha <= -0.4)
+            this.alpha = 0.5;
+    };
+    //渐变函数
     /**
      * 创建游戏场景
      * Create a game scene
@@ -123,7 +144,7 @@ var Main = (function (_super) {
         function scrolling(e) {
             var rect = this.scrollRect;
             movedistance = origintouchpointX - e.stageX;
-            rect.x = (origintouchpointX + movedistance);
+            rect.x = (originstagepointX + movedistance);
             this.scrollRect = rect;
         }
         function scrollstop(e) {
@@ -156,7 +177,6 @@ var Main = (function (_super) {
         sky.height = stageH;
         //添加背景
         var headportrait = this.createBitmapByName("51654332_p0_png");
-        p1.addChild(headportrait);
         headportrait.x = -625;
         headportrait.y = 200;
         //添加头像
@@ -186,6 +206,36 @@ var Main = (function (_super) {
         p1.addChild(line);
         */
         //添加一条白色直线
+        var backcircle = new egret.Shape();
+        backcircle.x = 100;
+        backcircle.y = 100;
+        backcircle.graphics.beginFill(0x7093DB, 1);
+        backcircle.graphics.drawCircle(225, 270, 138);
+        backcircle.graphics.endFill();
+        backcircle.alpha = 0.1;
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle);
+        this.timeOnEnterFrame = egret.getTimer();
+        p1.addChild(backcircle);
+        var backcircle2 = new egret.Shape();
+        backcircle2.x = 100;
+        backcircle2.y = 100;
+        backcircle2.graphics.beginFill(0x7093DB, 1);
+        backcircle2.graphics.drawCircle(225, 270, 170);
+        backcircle2.graphics.endFill();
+        backcircle2.alpha = 0.3;
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle2);
+        this.timeOnEnterFrame = egret.getTimer();
+        p1.addChild(backcircle2);
+        var backcircle3 = new egret.Shape();
+        backcircle3.x = 100;
+        backcircle3.y = 100;
+        backcircle3.graphics.beginFill(0x7093DB, 1);
+        backcircle3.graphics.drawCircle(225, 270, 200);
+        backcircle3.graphics.endFill();
+        backcircle3.alpha = 0.5;
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle3);
+        this.timeOnEnterFrame = egret.getTimer();
+        p1.addChild(backcircle3);
         var shp = new egret.Shape();
         shp.x = 100;
         shp.y = 100;
@@ -194,24 +244,49 @@ var Main = (function (_super) {
         shp.graphics.drawCircle(225, 270, 115);
         shp.graphics.endFill();
         p1.addChild(shp);
+        p1.addChild(headportrait);
         headportrait.mask = shp;
         //遮罩用的圆
-        var line = new egret.Shape();
-        line.graphics.lineStyle(6, 0x000000);
-        line.graphics.moveTo(0, 0);
-        line.graphics.lineTo(400, 0);
+        var shp2 = new egret.Shape();
+        shp2.graphics.lineStyle(4, 0xADEAEA);
+        shp2.graphics.moveTo(stageW / 2 + 230, stageH / 2 - 170);
+        shp2.graphics.lineTo(stageW / 2 + 230, stageH / 2 - 230);
+        shp2.graphics.lineTo(stageW / 2 + 281, stageH / 2 - 200);
+        shp2.graphics.lineTo(stageW / 2 + 230, stageH / 2 - 170);
+        shp2.graphics.beginFill(0xADEAEA, 1);
+        shp2.graphics.endFill();
+        p1.addChild(shp2);
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, shp2);
+        this.timeOnEnterFrame = egret.getTimer();
+        var shp3 = new egret.Shape();
+        shp3.graphics.lineStyle(4, 0xADEAEA);
+        shp3.graphics.moveTo(stageW / 2 + 250, stageH / 2 - 170);
+        shp3.graphics.lineTo(stageW / 2 + 250, stageH / 2 - 230);
+        shp3.graphics.lineTo(stageW / 2 + 301, stageH / 2 - 200);
+        shp3.graphics.lineTo(stageW / 2 + 250, stageH / 2 - 170);
+        shp3.graphics.beginFill(0xADEAEA, 1);
+        shp3.alpha = 0.8;
+        shp3.graphics.endFill();
+        p1.addChild(shp3);
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, shp3);
+        this.timeOnEnterFrame = egret.getTimer();
+        /*var line = new egret.Shape();
+        line.graphics.lineStyle(6,0x000000);
+        line.graphics.moveTo(0,0);
+        line.graphics.lineTo(400,0);
         line.graphics.endFill();
         line.x = 120;
-        line.y = stageH / 2 - 50;
+        line.y = stageH/2-50;
         p1.addChild(line);
+
         var line2 = new egret.Shape();
-        line2.graphics.lineStyle(6, 0x000000);
-        line2.graphics.moveTo(0, 0);
-        line2.graphics.lineTo(400, 0);
+        line2.graphics.lineStyle(6,0x000000);
+        line2.graphics.moveTo(0,0);
+        line2.graphics.lineTo(400,0);
         line2.graphics.endFill();
         line2.x = 120;
         line2.y = 220;
-        p1.addChild(line2);
+        p1.addChild(line2);*/
         //添加横线
         var colorLabel = new egret.TextField();
         colorLabel.x = stageW;
@@ -222,7 +297,7 @@ var Main = (function (_super) {
         colorLabel.text = "崔天舒";
         colorLabel.size = 55;
         colorLabel.x = 160;
-        colorLabel.y = stageH / 2;
+        colorLabel.y = stageH / 2 + 40;
         p1.addChild(colorLabel);
         5;
         var colorLabel2 = new egret.TextField();
@@ -234,7 +309,7 @@ var Main = (function (_super) {
         colorLabel2.text = "14081205";
         colorLabel2.size = 50;
         colorLabel2.x = 160;
-        colorLabel2.y = stageH / 2 + 90;
+        colorLabel2.y = stageH / 2 + 130;
         p1.addChild(colorLabel2);
         var textfield = new egret.TextField();
         this.addChild(textfield);
