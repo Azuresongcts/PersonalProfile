@@ -123,7 +123,7 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene():void {
         var stageW:number = this.stage.stageWidth;
-        var stageAW:number=this.stage.stageWidth*5;
+        var stageAW:number=this.stage.stageWidth*3;
         var stageH:number = this.stage.stageHeight;
 
         this.scrollRect = new egret.Rectangle(0, 0,stageAW,stageH);
@@ -139,8 +139,9 @@ class Main extends egret.DisplayObjectContainer {
             if((this.scrollRect.x%stageW)!=0){
                 this.scrollRect.x=originstagepointX;
             }
-            originstagepointX=this.scrollRect.x;
             origintouchpointX=e.stageX;
+            originstagepointX=this.scrollRect.x;
+
             this.addEventListener(egret.TouchEvent.TOUCH_MOVE,scrolling,this);
         }
 
@@ -157,8 +158,7 @@ class Main extends egret.DisplayObjectContainer {
                 rect.x = originstagepointX + stageW;
                 this.scrollRect = rect;
                 movedistance = 0;
-            }
-            if((movedistance<=(-(this.stage.stageWidth/4))) &&originstagepointX!=0) {
+            }else if((movedistance<=(-(this.stage.stageWidth/4))) &&originstagepointX!=0) {
                 rect.x = originstagepointX - stageW;
                 this.scrollRect = rect;    
                 movedistance = 0;
@@ -166,7 +166,6 @@ class Main extends egret.DisplayObjectContainer {
                 movedistance = 0;
                 rect.x = originstagepointX;
                 this.scrollRect = rect;
-
             }
              this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,scrolling,this);
         }
@@ -179,7 +178,7 @@ class Main extends egret.DisplayObjectContainer {
         p1.width = stageW;
         p1.height = stageH;
 
-        var sky:egret.Bitmap = this.createBitmapByName("41297261_p0_jpg");
+        var sky:egret.Bitmap = this.createBitmapByName("whitebackground_jpg");
         p1.addChild(sky);
         sky.width = stageW;
         sky.height = stageH;
@@ -187,24 +186,28 @@ class Main extends egret.DisplayObjectContainer {
 
         var headportrait= this.createBitmapByName("51654332_p0_png");
         p1.addChild(headportrait);
-        headportrait.x = -600;
+        headportrait.x = -625;
         headportrait.y = 200;
         //添加头像
 
-        var topMask = new egret.Shape();
+        /*var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, 172);
         topMask.graphics.endFill();
         topMask.y = 33;
         p1.addChild(topMask);
+        */
         //添加阴影
 
+        /*
         var icon:egret.Bitmap = this.createBitmapByName("egret_icon_png");
         p1.addChild(icon);
         icon.x = 26;
         icon.y = 33;
+        */
         //添加白鹭图标
 
+        /*
         var line = new egret.Shape();
         line.graphics.lineStyle(2,0xffffff);
         line.graphics.moveTo(0,0);
@@ -213,6 +216,7 @@ class Main extends egret.DisplayObjectContainer {
         line.x = 172;
         line.y = 61;
         p1.addChild(line);
+        */
         //添加一条白色直线
 
         var shp:egret.Shape = new egret.Shape();
@@ -220,34 +224,53 @@ class Main extends egret.DisplayObjectContainer {
         shp.y = 100;
         shp.graphics.lineStyle( 10, 0x00ff00 );
         shp.graphics.beginFill( 0xff0000, 1);
-        shp.graphics.drawCircle(250,270, 115 );
+        shp.graphics.drawCircle(225,270, 115 );
         shp.graphics.endFill();
         p1.addChild( shp );
         headportrait.mask=shp;
         //遮罩用的圆
 
+        var line = new egret.Shape();
+        line.graphics.lineStyle(6,0x000000);
+        line.graphics.moveTo(0,0);
+        line.graphics.lineTo(400,0);
+        line.graphics.endFill();
+        line.x = 120;
+        line.y = stageH/2-50;
+        p1.addChild(line);
+
+        var line2 = new egret.Shape();
+        line2.graphics.lineStyle(6,0x000000);
+        line2.graphics.moveTo(0,0);
+        line2.graphics.lineTo(400,0);
+        line2.graphics.endFill();
+        line2.x = 120;
+        line2.y = 220;
+        p1.addChild(line2);
+        //添加横线
+
         var colorLabel = new egret.TextField();
         colorLabel.x = stageW;
-        colorLabel.textColor = 0xffffff;
-        colorLabel.width = stageW-250;
+        colorLabel.textColor = 0x000000;
+        colorLabel.width = stageW-300;
         colorLabel.fontFamily = "Microsoft YaHei"
         colorLabel.textAlign = "center";
         colorLabel.text = "崔天舒";
-        colorLabel.size =60;
+        colorLabel.size =55;
         colorLabel.x = 160;
-        colorLabel.y = stageH/2-40;
-        p1.addChild(colorLabel);
+        colorLabel.y = stageH/2;
+        p1.addChild(colorLabel);5
 
         var colorLabel2 = new egret.TextField();
         colorLabel2.x = stageW;
-        colorLabel2.textColor = 0xffffff;
-        colorLabel2.width = stageW-250;
+        colorLabel2.textColor = 0x000000;
+        colorLabel2.width = stageW-300;
         colorLabel2.fontFamily = "Microsoft YaHei"
         colorLabel2.textAlign = "center";
         colorLabel2.text = "14081205";
         colorLabel2.size =50;
         colorLabel2.x = 160;
-        colorLabel2.y = stageH/2+40;
+        colorLabel2.y = stageH/2+90;
         p1.addChild(colorLabel2);
 
         var textfield = new egret.TextField();
@@ -261,7 +284,31 @@ class Main extends egret.DisplayObjectContainer {
         textfield.y = 135;
         this.textfield = textfield;
 
+////////////////////////////////////////////////////
+        var p2 = new egret.DisplayObjectContainer();
+        this.addChild(p2);
+        p2.x = stageW;
+        p2.width = stageW;
+        p2.height = stageH;
 
+        var sky:egret.Bitmap = this.createBitmapByName("whitebackground_jpg");
+        p2.addChild(sky);
+        sky.width = stageW;
+        sky.height = stageH;
+        //添加背景
+
+////////////////////////////////////////////////////
+        var p3 = new egret.DisplayObjectContainer();
+        this.addChild(p3);
+        p3.x = stageW*2;
+        p3.width = stageW;
+        p3.height = stageH;
+
+        var sky:egret.Bitmap = this.createBitmapByName("whitebackground_jpg");
+        p3.addChild(sky);
+        sky.width = stageW;
+        sky.height = stageH;
+        //添加背景
 
 
 
