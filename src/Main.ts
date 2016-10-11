@@ -326,7 +326,6 @@ class Main extends egret.DisplayObjectContainer {
         shp3.alpha=0.8;
         shp3.graphics.endFill();
         p1.addChild(shp3);
-        
         this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,shp3);
         this.timeOnEnterFrame = egret.getTimer();
 
@@ -397,6 +396,52 @@ class Main extends egret.DisplayObjectContainer {
         sky2.height = stageH;
         p2.addChild(sky2);
 
+        var p2rectangle:egret.Shape = new egret.Shape();
+        p2rectangle.graphics.lineStyle(4,0xffffff);
+        p2rectangle.graphics.moveTo( stageW/2+230,1100); 
+        p2rectangle.graphics.lineTo( stageW/2+230,1040);
+        p2rectangle.graphics.lineTo( stageW/2+281,1070);
+        p2rectangle.graphics.lineTo( stageW/2+230,1100);
+        p2rectangle.graphics.endFill();
+        p2.addChild(p2rectangle);
+        this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,p2rectangle);
+        this.timeOnEnterFrame = egret.getTimer();
+
+        var p2rectangle2:egret.Shape = new egret.Shape();
+        p2rectangle2.graphics.lineStyle(4,0xffffff);
+        p2rectangle2.graphics.moveTo( stageW/2+250,1100 ); 
+        p2rectangle2.graphics.lineTo( stageW/2+250,1040);
+        p2rectangle2.graphics.lineTo( stageW/2+301,1070 );
+        p2rectangle2.graphics.lineTo( stageW/2+250,1100 );
+        p2rectangle2.alpha=0.8;
+        p2rectangle2.graphics.endFill();
+        p2.addChild(p2rectangle2);
+        this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,p2rectangle2);
+        this.timeOnEnterFrame = egret.getTimer();
+
+        var p2rectangle3:egret.Shape = new egret.Shape();
+        p2rectangle3.graphics.lineStyle(4,0xffffff);
+        p2rectangle3.graphics.moveTo( 70,1100 ); 
+        p2rectangle3.graphics.lineTo( 70,1040);
+        p2rectangle3.graphics.lineTo( 21,1070 );
+        p2rectangle3.graphics.lineTo( 70,1100 );
+        p2rectangle3.alpha=0.8;
+        p2rectangle3.graphics.endFill();
+        p2.addChild(p2rectangle3);
+        this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,p2rectangle3);
+        this.timeOnEnterFrame = egret.getTimer();
+
+        var p2rectangle4:egret.Shape = new egret.Shape();
+        p2rectangle4.graphics.lineStyle(4,0xffffff);
+        p2rectangle4.graphics.moveTo( 90,1100 ); 
+        p2rectangle4.graphics.lineTo( 90,1040);
+        p2rectangle4.graphics.lineTo( 41,1070 );
+        p2rectangle4.graphics.lineTo( 90,1100 );
+        p2rectangle4.alpha=0.8;
+        p2rectangle4.graphics.endFill();
+        p2.addChild(p2rectangle4);
+        this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,p2rectangle4);
+        this.timeOnEnterFrame = egret.getTimer();
         /*
         var btnRight: egret.Shape = new egret.Shape();
         btnRight.graphics.beginFill(0x01cccc);
@@ -425,7 +470,7 @@ class Main extends egret.DisplayObjectContainer {
         p2colorLabel.x = stageW;
         p2colorLabel.textColor = 0xffffff;
         p2colorLabel.width = 60;
-        p2colorLabel.fontFamily = "Microsoft JhengHei"
+        p2colorLabel.fontFamily = "SimHei"
         p2colorLabel.textAlign = "center";
         p2colorLabel.text = "个人简介";
         p2colorLabel.size =60;
@@ -438,25 +483,37 @@ class Main extends egret.DisplayObjectContainer {
         p2colorLabel2.x = stageW;
         p2colorLabel2.textColor = 0x000000;
         p2colorLabel2.width = 250;
-        p2colorLabel2.fontFamily = "Microsoft JhengHei"
-        p2colorLabel2.textAlign = "center";
+        p2colorLabel2.fontFamily = "Microsoft YaHei"
+        p2colorLabel2.textAlign = "left";
         p2colorLabel2.text = "姓名：崔天舒";
         p2colorLabel2.size =35;
-        p2colorLabel2.x = 20;
-        p2colorLabel2.y = 100;
+        p2colorLabel2.x = 30;
+        p2colorLabel2.y = 30;
         p2.addChild(p2colorLabel2);    
 
         var p2colorLabel3 = new egret.TextField();
         p2colorLabel3.x = stageW;
         p2colorLabel3.textColor = 0x000000;
         p2colorLabel3.width = 250;
-        p2colorLabel3.fontFamily = "Microsoft JhengHei"
-        p2colorLabel3.textAlign = "center";
+        p2colorLabel3.fontFamily = "Microsoft YaHei"
+        p2colorLabel3.textAlign = "left";
         p2colorLabel3.text = "性别：男";
         p2colorLabel3.size =35;
-        p2colorLabel3.x = p2colorLabel2.x-37;
+        p2colorLabel3.x = p2colorLabel2.x;
         p2colorLabel3.y = p2colorLabel2.y+80;
         p2.addChild(p2colorLabel3); 
+
+        var p2colorLabel4 = new egret.TextField();
+        p2colorLabel4.x = stageW;
+        p2colorLabel4.textColor = 0x000000;
+        p2colorLabel4.width = 250;
+        p2colorLabel4.fontFamily = "Microsoft YaHei"
+        p2colorLabel4.textAlign = "left";
+        p2colorLabel4.text = "年龄：20";
+        p2colorLabel4.size =35;
+        p2colorLabel4.x = p2colorLabel2.x;
+        p2colorLabel4.y = p2colorLabel3.y+80;
+        p2.addChild(p2colorLabel4); 
 ////////////////////////////////////////////////////
         var p3 = new egret.DisplayObjectContainer();
         this.addChild(p3);
