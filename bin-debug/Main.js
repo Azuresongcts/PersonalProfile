@@ -116,6 +116,15 @@ var Main = (function (_super) {
         if (this.alpha <= -0.4)
             this.alpha = 0.5;
     };
+    p.onEnterFrameplus = function (e) {
+        var now = egret.getTimer();
+        var time = this.timeOnEnterFrame;
+        var pass = now - time;
+        do {
+            this.alpha += 0.01;
+        } while (this.alpha < -1);
+        this.timeOnEnterFrame = egret.getTimer();
+    };
     //渐变函数
     /**
      * 创建游戏场景
@@ -123,7 +132,7 @@ var Main = (function (_super) {
      */
     p.createGameScene = function () {
         var stageW = this.stage.stageWidth;
-        var stageAW = this.stage.stageWidth * 3;
+        var stageAW = this.stage.stageWidth * 2;
         var stageH = this.stage.stageHeight;
         this.scrollRect = new egret.Rectangle(0, 0, stageAW, stageH);
         this.cacheAsBitmap = true;
@@ -292,7 +301,7 @@ var Main = (function (_super) {
         colorLabel.x = stageW;
         colorLabel.textColor = 0x000000;
         colorLabel.width = stageW - 300;
-        colorLabel.fontFamily = "Microsoft YaHei";
+        colorLabel.fontFamily = "Microsoft JhengHei";
         colorLabel.textAlign = "center";
         colorLabel.text = "崔天舒";
         colorLabel.size = 55;
@@ -304,7 +313,7 @@ var Main = (function (_super) {
         colorLabel2.x = stageW;
         colorLabel2.textColor = 0x000000;
         colorLabel2.width = stageW - 300;
-        colorLabel2.fontFamily = "Microsoft YaHei";
+        colorLabel2.fontFamily = "Microsoft JhengHei";
         colorLabel2.textAlign = "center";
         colorLabel2.text = "14081205";
         colorLabel2.size = 50;
@@ -323,26 +332,50 @@ var Main = (function (_super) {
         this.textfield = textfield;
         ////////////////////////////////////////////////////
         var p2 = new egret.DisplayObjectContainer();
-        this.addChild(p2);
         p2.x = stageW;
         p2.width = stageW;
         p2.height = stageH;
+        this.addChild(p2);
         var sky = this.createBitmapByName("whitebackground_jpg");
         p2.addChild(sky);
         sky.width = stageW;
         sky.height = stageH;
-        //添加背景
+        var p2line = new egret.Shape();
+        p2line.graphics.lineStyle(6, 0x000000);
+        p2line.graphics.moveTo(0, 0);
+        p2line.graphics.lineTo(400, 0);
+        p2line.graphics.endFill();
+        p2line.x = 120;
+        p2line.y = 220;
+        p2.addChild(p2line);
         ////////////////////////////////////////////////////
         var p3 = new egret.DisplayObjectContainer();
         this.addChild(p3);
         p3.x = stageW * 2;
         p3.width = stageW;
         p3.height = stageH;
-        var sky = this.createBitmapByName("whitebackground_jpg");
+        var sky = this.createBitmapByName("41297261_p0_jpg");
         p3.addChild(sky);
-        sky.width = stageW;
+        sky.width = 1600;
         sky.height = stageH;
         //添加背景
+        var p3colorLabel = new egret.TextField();
+        p3colorLabel.x = stageW;
+        p3colorLabel.textColor = 0x545454;
+        p3colorLabel.width = 400;
+        p3colorLabel.fontFamily = "Microsoft JhengHei";
+        p3colorLabel.textAlign = "center";
+        p3colorLabel.text = "Thank you for watching";
+        p3colorLabel.strokeColor = 0x8C7853;
+        p3colorLabel.stroke = 2;
+        p3colorLabel.size = 55;
+        p3colorLabel.x = 30;
+        p3colorLabel.y = 140;
+        p3colorLabel.alpha = 0;
+        p3.addChild(p3colorLabel);
+        5;
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrameplus, p3colorLabel);
+        this.timeOnEnterFrame = egret.getTimer();
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
         RES.getResAsync("description_json", this.startAnimation, this);
