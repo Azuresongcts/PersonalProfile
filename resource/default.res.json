@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,41297261_p0_jpg,51654332_p0_png,whitebackground_jpg",
+			"keys": "bg_jpg,egret_icon_png,description_json,41297261_p0_jpg,51654332_p0_png,whitebackground_jpg,6f4f566600619cb717cecb07_jpg,6f4f566600619cb717cecb08_jpg",
 			"name": "preload"
 		}
 	],
@@ -35,6 +35,16 @@
 			"name": "whitebackground_jpg",
 			"type": "image",
 			"url": "assets/whitebackground.jpg"
+		},
+		{
+			"name": "6f4f566600619cb717cecb07_jpg",
+			"type": "image",
+			"url": "assets/6f4f566600619cb717cecb07.jpg"
+		},
+		{
+			"name": "6f4f566600619cb717cecb08_jpg",
+			"type": "image",
+			"url": "assets/6f4f566600619cb717cecb08.jpg"
 		}
 	]
 }

@@ -148,9 +148,9 @@ var Main = (function (_super) {
             }
             origintouchpointX = e.stageX;
             originstagepointX = this.scrollRect.x;
-            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, scrolling, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, onScroll, this);
         }
-        function scrolling(e) {
+        function onScroll(e) {
             var rect = this.scrollRect;
             movedistance = origintouchpointX - e.stageX;
             rect.x = (originstagepointX + movedistance);
@@ -173,21 +173,32 @@ var Main = (function (_super) {
                 rect.x = originstagepointX;
                 this.scrollRect = rect;
             }
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, scrolling, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, onScroll, this);
         }
+        /*function lineScroll(e: egret.TouchEvent): void {
+             var rect: egret.Rectangle = this.scrollRect;
+             switch (e.currentTarget) {
+                 case btnRight:
+                 rect.x -= 150;
+                 break;
+                 }
+             this.scrollRect = rect;
+            }
+            */
         //////////////////////////////////////////////////////////////////
         var p1 = new egret.DisplayObjectContainer();
         this.addChild(p1);
         p1.width = stageW;
         p1.height = stageH;
-        var sky = this.createBitmapByName("whitebackground_jpg");
+        var sky = this.createBitmapByName("6f4f566600619cb717cecb07_jpg");
         p1.addChild(sky);
-        sky.width = stageW;
+        sky.width = stageW * 2;
         sky.height = stageH;
+        sky.x = -250;
         //添加背景
         var headportrait = this.createBitmapByName("51654332_p0_png");
-        headportrait.x = -625;
-        headportrait.y = 200;
+        headportrait.x = -525;
+        headportrait.y = 100;
         //添加头像
         /*var topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
@@ -219,7 +230,7 @@ var Main = (function (_super) {
         backcircle.x = 100;
         backcircle.y = 100;
         backcircle.graphics.beginFill(0x7093DB, 1);
-        backcircle.graphics.drawCircle(225, 270, 138);
+        backcircle.graphics.drawCircle(325, 170, 138);
         backcircle.graphics.endFill();
         backcircle.alpha = 0.1;
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle);
@@ -229,7 +240,7 @@ var Main = (function (_super) {
         backcircle2.x = 100;
         backcircle2.y = 100;
         backcircle2.graphics.beginFill(0x7093DB, 1);
-        backcircle2.graphics.drawCircle(225, 270, 170);
+        backcircle2.graphics.drawCircle(325, 170, 170);
         backcircle2.graphics.endFill();
         backcircle2.alpha = 0.3;
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle2);
@@ -239,7 +250,7 @@ var Main = (function (_super) {
         backcircle3.x = 100;
         backcircle3.y = 100;
         backcircle3.graphics.beginFill(0x7093DB, 1);
-        backcircle3.graphics.drawCircle(225, 270, 200);
+        backcircle3.graphics.drawCircle(325, 170, 200);
         backcircle3.graphics.endFill();
         backcircle3.alpha = 0.5;
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame2, backcircle3);
@@ -250,30 +261,28 @@ var Main = (function (_super) {
         shp.y = 100;
         shp.graphics.lineStyle(10, 0x00ff00);
         shp.graphics.beginFill(0xff0000, 1);
-        shp.graphics.drawCircle(225, 270, 115);
+        shp.graphics.drawCircle(325, 170, 115);
         shp.graphics.endFill();
         p1.addChild(shp);
         p1.addChild(headportrait);
         headportrait.mask = shp;
         //遮罩用的圆
         var shp2 = new egret.Shape();
-        shp2.graphics.lineStyle(4, 0xADEAEA);
-        shp2.graphics.moveTo(stageW / 2 + 230, stageH / 2 - 170);
-        shp2.graphics.lineTo(stageW / 2 + 230, stageH / 2 - 230);
-        shp2.graphics.lineTo(stageW / 2 + 281, stageH / 2 - 200);
-        shp2.graphics.lineTo(stageW / 2 + 230, stageH / 2 - 170);
-        shp2.graphics.beginFill(0xADEAEA, 1);
+        shp2.graphics.lineStyle(4, 0xffffff);
+        shp2.graphics.moveTo(stageW / 2 + 230, 1100);
+        shp2.graphics.lineTo(stageW / 2 + 230, 1040);
+        shp2.graphics.lineTo(stageW / 2 + 281, 1070);
+        shp2.graphics.lineTo(stageW / 2 + 230, 1100);
         shp2.graphics.endFill();
         p1.addChild(shp2);
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, shp2);
         this.timeOnEnterFrame = egret.getTimer();
         var shp3 = new egret.Shape();
-        shp3.graphics.lineStyle(4, 0xADEAEA);
-        shp3.graphics.moveTo(stageW / 2 + 250, stageH / 2 - 170);
-        shp3.graphics.lineTo(stageW / 2 + 250, stageH / 2 - 230);
-        shp3.graphics.lineTo(stageW / 2 + 301, stageH / 2 - 200);
-        shp3.graphics.lineTo(stageW / 2 + 250, stageH / 2 - 170);
-        shp3.graphics.beginFill(0xADEAEA, 1);
+        shp3.graphics.lineStyle(4, 0xffffff);
+        shp3.graphics.moveTo(stageW / 2 + 250, 1100);
+        shp3.graphics.lineTo(stageW / 2 + 250, 1040);
+        shp3.graphics.lineTo(stageW / 2 + 301, 1070);
+        shp3.graphics.lineTo(stageW / 2 + 250, 1100);
         shp3.alpha = 0.8;
         shp3.graphics.endFill();
         p1.addChild(shp3);
@@ -299,26 +308,26 @@ var Main = (function (_super) {
         //添加横线
         var colorLabel = new egret.TextField();
         colorLabel.x = stageW;
-        colorLabel.textColor = 0x000000;
+        colorLabel.textColor = 0xffffff;
         colorLabel.width = stageW - 300;
         colorLabel.fontFamily = "Microsoft JhengHei";
         colorLabel.textAlign = "center";
         colorLabel.text = "崔天舒";
         colorLabel.size = 55;
-        colorLabel.x = 160;
-        colorLabel.y = stageH / 2 + 40;
+        colorLabel.x = 20;
+        colorLabel.y = 900;
         p1.addChild(colorLabel);
         5;
         var colorLabel2 = new egret.TextField();
         colorLabel2.x = stageW;
-        colorLabel2.textColor = 0x000000;
+        colorLabel2.textColor = 0xffffff;
         colorLabel2.width = stageW - 300;
         colorLabel2.fontFamily = "Microsoft JhengHei";
         colorLabel2.textAlign = "center";
         colorLabel2.text = "14081205";
         colorLabel2.size = 50;
-        colorLabel2.x = 160;
-        colorLabel2.y = stageH / 2 + 130;
+        colorLabel2.x = 20;
+        colorLabel2.y = 1000;
         p1.addChild(colorLabel2);
         var textfield = new egret.TextField();
         this.addChild(textfield);
@@ -336,18 +345,67 @@ var Main = (function (_super) {
         p2.width = stageW;
         p2.height = stageH;
         this.addChild(p2);
-        var sky = this.createBitmapByName("whitebackground_jpg");
-        p2.addChild(sky);
-        sky.width = stageW;
-        sky.height = stageH;
+        var sky2 = this.createBitmapByName("6f4f566600619cb717cecb08_jpg");
+        sky2.width = stageW;
+        sky2.height = stageH;
+        p2.addChild(sky2);
+        /*
+        var btnRight: egret.Shape = new egret.Shape();
+        btnRight.graphics.beginFill(0x01cccc);
+        btnRight.graphics.drawRect(0,0,50,50);
+        btnRight.graphics.endFill();
+        btnRight.x = 150;
+        btnRight.y = 100;
+        p2.addChild(btnRight);
+        btnRight.touchEnabled = true;
+        //动画按钮
+
         var p2line = new egret.Shape();
-        p2line.graphics.lineStyle(6, 0x000000);
-        p2line.graphics.moveTo(0, 0);
-        p2line.graphics.lineTo(400, 0);
+        p2line.graphics.lineStyle(8,0x000000);
+        p2line.graphics.moveTo(0,0);
+        p2line.graphics.lineTo(400,0);
         p2line.graphics.endFill();
-        p2line.x = 120;
-        p2line.y = 220;
+        p2line.scrollRect = new egret.Rectangle(0, 0, 600, 50);
+        p2line.x = 80;
+        p2line.y = 80;
+        btnRight.addEventListener(egret.TouchEvent.TOUCH_TAP, lineScroll, p2line);
         p2.addChild(p2line);
+        //标题直线
+        */
+        var p2colorLabel = new egret.TextField();
+        p2colorLabel.x = stageW;
+        p2colorLabel.textColor = 0xffffff;
+        p2colorLabel.width = 60;
+        p2colorLabel.fontFamily = "Microsoft JhengHei";
+        p2colorLabel.textAlign = "center";
+        p2colorLabel.text = "个人简介";
+        p2colorLabel.size = 60;
+        p2colorLabel.x = 550;
+        p2colorLabel.y = 20;
+        p2.addChild(p2colorLabel);
+        //标题文字
+        var p2colorLabel2 = new egret.TextField();
+        p2colorLabel2.x = stageW;
+        p2colorLabel2.textColor = 0x000000;
+        p2colorLabel2.width = 250;
+        p2colorLabel2.fontFamily = "Microsoft JhengHei";
+        p2colorLabel2.textAlign = "center";
+        p2colorLabel2.text = "姓名：崔天舒";
+        p2colorLabel2.size = 35;
+        p2colorLabel2.x = 20;
+        p2colorLabel2.y = 100;
+        p2.addChild(p2colorLabel2);
+        var p2colorLabel3 = new egret.TextField();
+        p2colorLabel3.x = stageW;
+        p2colorLabel3.textColor = 0x000000;
+        p2colorLabel3.width = 250;
+        p2colorLabel3.fontFamily = "Microsoft JhengHei";
+        p2colorLabel3.textAlign = "center";
+        p2colorLabel3.text = "性别：男";
+        p2colorLabel3.size = 35;
+        p2colorLabel3.x = p2colorLabel2.x - 37;
+        p2colorLabel3.y = p2colorLabel2.y + 80;
+        p2.addChild(p2colorLabel3);
         ////////////////////////////////////////////////////
         var p3 = new egret.DisplayObjectContainer();
         this.addChild(p3);
