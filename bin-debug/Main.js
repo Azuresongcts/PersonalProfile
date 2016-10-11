@@ -376,7 +376,7 @@ var Main = (function (_super) {
         p2rectangle3.graphics.lineTo(70, 1040);
         p2rectangle3.graphics.lineTo(21, 1070);
         p2rectangle3.graphics.lineTo(70, 1100);
-        p2rectangle3.alpha = 0.8;
+        p2rectangle3.alpha = 0.4;
         p2rectangle3.graphics.endFill();
         p2.addChild(p2rectangle3);
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, p2rectangle3);
